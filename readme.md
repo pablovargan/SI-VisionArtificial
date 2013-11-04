@@ -2,3 +2,8 @@
 
 28/10/2013
 > Sesión 1: Inicio y especificación del proyecto
+
+4/11/2013
+> Sesión 2: Diseño e implementación del hiperplano
+
+> Añadida la carpeta 'Anexo' con práctica de apoyo para la realización de la práctica.
