@@ -24,6 +24,8 @@ public class Practica2SI {
 
     private ArrayList<Cara> listaAprendizaje;
     private ArrayList<Cara> listaTest;
+    // Lista de caras
+    private ArrayList<Cara> caras;
 
     public Practica2SI()
     {
@@ -58,7 +60,9 @@ public class Practica2SI {
 		}
 	}
 	System.out.println(listaAprendizaje.size()+ " imágenes encontradas");
-		
+        // Hago una copia de las caras obtenidas
+        caras = new ArrayList<Cara>();
+        caras = listaAprendizaje;
 	//inicializamos las listas
 	listaTest = new ArrayList<Cara>();
 		
@@ -128,30 +132,54 @@ public class Practica2SI {
 	files = directorio.listFiles(filtro);
     }
 
-	public void setRuta(String r)
-	{
-		rutaDir = r;
-	}
-	
-	public void setRate(double t)
-	{
-		testRate = t;
-	}
-	
-	public void setNumIteraciones(int t)
-	{
-		NUM_ITERACIONES = t;
-	}
-	public void setNumClasificadores(int c)
-	{
-		NUM_CLASIFICADORES = c;
-	}
+    public void setRuta(String r)
+    {
+            rutaDir = r;
+    }
 
-	public void setVerbose(boolean v)
-	{
-		VERBOSE = v;
-	}
-	
+    public void setRate(double t)
+    {
+            testRate = t;
+    }
+
+    public void setNumIteraciones(int t)
+    {
+            NUM_ITERACIONES = t;
+    }
+    public void setNumClasificadores(int c)
+    {
+            NUM_CLASIFICADORES = c;
+    }
+
+    public void setVerbose(boolean v)
+    {
+            VERBOSE = v;
+    }
+    
+    public int[] getMinimos() {
+        int []aux = new int[caras.size()];
+        for(int i = 0; i < caras.size(); i++)
+            aux[i] = caras.get(i).getMin();
+        
+        return aux;
+    }
+    
+    public int[] getMaximos() {
+        int []aux = new int[caras.size()];
+        for(int i = 0; i < caras.size(); i++)
+            aux[i] = caras.get(i).getMax();
+        
+        return aux;
+    }
+    
+    public void getPuntos() {
+        // Obtengo los 2 vectores con min y max
+        int []minimos = this.getMinimos();
+        int []maximos = this.getMaximos();
+               
+        for(int i = 0; i < minimos.length; i++)
+            System.out.println("Min, Max: [" + minimos[i] + "," + maximos[i] + "]");
+    }
     
     /**
      * @param args the command line arguments
@@ -200,8 +228,10 @@ public class Practica2SI {
 			else maluso = true;
 		}
 		
-		if(!maluso)
+		if(!maluso) {
 			programa.init();
+                        programa.getPuntos();
+                }
 		else
 		{
 			System.out.println("Lista de parametros incorrecta");

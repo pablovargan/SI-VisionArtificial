@@ -10,6 +10,7 @@ import javax.imageio.ImageIO;
  * @author dviejo
  */
 public class Cara {
+        // Vector de cada cara
 	private int []data;
 	private int tipo;
 	
@@ -31,7 +32,7 @@ public class Cara {
 			//Asumiendo que la imagen ya está en escala de grises pero en formato color, 
 			//convertimos ARGB en un único valor
 			for(cont=0;cont<data.length;cont++)
-				data[cont] = data[cont] & mask; 
+				data[cont] = data[cont] & mask;
 			this.tipo = tipo;
 		} catch (IOException e)
 		{
@@ -53,4 +54,24 @@ public class Cara {
 	{
 		tipo = newtipo;
 	}
+        
+        // Obtiene el menor punto
+        public int getMin() {
+            int minimo = 576;
+            for(int i = 0; i < data.length; i++) {
+                if(data[i] < 576)
+                    minimo = data[i];
+            }
+            return minimo;
+        }
+        
+        // Obtiene el maximo punto
+        public int getMax() {
+            int maximo = 0;
+            for(int i = 0; i < data.length; i++) {
+                if(data[i] > maximo)
+                    maximo = data[i];
+            }
+            return maximo;
+        }
 }
