@@ -56,7 +56,8 @@ public class Cara {
 	}
         
         // Obtiene el menor punto
-        public int getMin() {
+        public int getMin() 
+        {
             int minimo = 576;
             for(int i = 0; i < data.length; i++) {
                 if(data[i] < 576)
@@ -66,7 +67,8 @@ public class Cara {
         }
         
         // Obtiene el maximo punto
-        public int getMax() {
+        public int getMax() 
+        {
             int maximo = 0;
             for(int i = 0; i < data.length; i++) {
                 if(data[i] > maximo)

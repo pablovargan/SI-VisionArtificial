@@ -79,7 +79,8 @@ public class Practica2SI {
 	time = t2 - t1;
 	System.out.println("Tiempo empleado en el aprendizaje: "+((float)time/1000f)+" segundos");
 	System.out.println("Número de clasificadores encontrados: "); //TODO añadir el valor
-	//Test final
+	/*
+        //Test final
         if(VERBOSE)
         {
             aciertos = 0;
@@ -103,7 +104,15 @@ public class Practica2SI {
 			aciertos++;
 	}
 	System.out.println("TEST. Tasa de aciertos: "+((float)aciertos/(float)(listaAprendizaje.size())*100.0f)+"%");
-
+        */
+        // Obtengo los 2 vectores con min y max
+        int []minimos = this.getMinimos();
+        int []maximos = this.getMaximos();
+        
+        // Ejemplo creando hiperplanos con los puntos
+        ClasificadorDebil cd = new ClasificadorDebil(NUM_CLASIFICADORES, minimos, maximos);
+        cd.conjuntoAprendizaje(listaAprendizaje);
+        cd.testMejor(listaTest);
     }
     
     /**
@@ -156,23 +165,26 @@ public class Practica2SI {
             VERBOSE = v;
     }
     
-    public int[] getMinimos() {
-        int []aux = new int[caras.size()];
-        for(int i = 0; i < caras.size(); i++)
-            aux[i] = caras.get(i).getMin();
+    public int[] getMinimos() 
+    {
+        int []aux = new int[listaAprendizaje.size()];
+        for(int i = 0; i < listaAprendizaje.size(); i++)
+            aux[i] = listaAprendizaje.get(i).getMin();
         
         return aux;
     }
     
-    public int[] getMaximos() {
-        int []aux = new int[caras.size()];
-        for(int i = 0; i < caras.size(); i++)
-            aux[i] = caras.get(i).getMax();
+    public int[] getMaximos() 
+    {
+        int []aux = new int[listaAprendizaje.size()];
+        for(int i = 0; i < listaAprendizaje.size(); i++)
+            aux[i] = listaAprendizaje.get(i).getMax();
         
         return aux;
     }
     
-    public void getPuntos() {
+    public void getPuntos() 
+    {
         // Obtengo los 2 vectores con min y max
         int []minimos = this.getMinimos();
         int []maximos = this.getMaximos();
@@ -230,7 +242,6 @@ public class Practica2SI {
 		
 		if(!maluso) {
 			programa.init();
-                        programa.getPuntos();
                 }
 		else
 		{
