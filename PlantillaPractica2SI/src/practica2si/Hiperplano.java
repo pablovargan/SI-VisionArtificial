@@ -42,7 +42,8 @@ public class Hiperplano
             vector[i] /= modulo;
         // Calculo C como punto en el espacio aleatorio
         for(int i = 0; i < DIMENSIONES; i++)
-            C += puntos[i] * vector[i];
+            //C += puntos[i] * vector[i];
+            C -= vector[i] * (((int) (Math.random() * 1000)) % (MAX_VALUE + 1));
     }
     public Hiperplano(int[] minPuntos, int[] maxPuntos)
     {
@@ -60,22 +61,24 @@ public class Hiperplano
         for(int i = 0; i < DIMENSIONES; i++)
             modulo += vector[i];
         for(int i = 0; i < DIMENSIONES; i++)
-            vector[i] = vector[i]/modulo;
+            vector[i] /= modulo;
         // Calculo C como punto en el espacio aleatorio
         for(int i = 0; i < DIMENSIONES; i++)
-            C += puntos[i] * vector[i];
+            //C += puntos[i] * vector[i];
+            C -= vector[i] * (((int) (Math.random() * 1000)) % (MAX_VALUE + 1));
     }
     
     // Evalua un punto en un plano y genera el resultado de en qué lado queda el punto
     public double evaluar(int[] p)
     {
         double resultado = 0;
-        for(int i = 0; i < p.length; i++)
-        //for(int i = 0; i < DIMENSIONES; i++)
+        //for(int i = 0; i < p.length; i++)
+        for(int i = 0; i < DIMENSIONES; i++)
             resultado += vector[i] * p[i];
+            //resultado += puntos[i] * p[i];
         // 0 si esta en el hiperplano, positivo si esta por encima y negativo si está por debajo
-        return resultado - C;
-        //return resultado + C;
+        //return resultado - C;
+        return resultado + C;
     }
     
     public double[] getVector() { return vector; }

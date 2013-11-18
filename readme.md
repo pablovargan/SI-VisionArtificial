@@ -23,4 +23,11 @@
 > 
 > Creada la clase **ClasificadorDebil** en el que a partir del NUMCLASIFICADORES, minPuntos y maxPuntos genera los hiperplanos dependiendo del NUMCLASIFICADORES. Implementado el conjunto de aprendizaje que va evaluando cada hiperplano con las caras para decidir el número de aciertos y fallos para ver cual es el mejor hiperplano calculando la tasa de aciertos (%) y asignamos cual es el mejor hiperplano para la lista de aprendizaje que le pasamos por parámetro.
 
+18/11/2013
+> Sesión 4: Diseño del algoritmo AdaBoost
+
+> Añadida la propiedad probabilidad a la clase Cara para que el algormitmo pueda establecer y obtener los pesos asociados a esa cara y añadida la clase AdaBoost.
+> 
+> **Modificado** en Hiperplano el término C que mejora la tasa de aciertos y voltea el resultado llegan a generar un 90% de aciertos. (Comentados los errores en la implementación).
+
 

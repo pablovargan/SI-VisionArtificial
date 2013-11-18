@@ -13,6 +13,7 @@ public class Cara {
         // Vector de cada cara
 	private int []data;
 	private int tipo;
+        private double probabilidad;
 	
         /**
          * Lee la información de una imagen desde un fichero. Le asigna el tipo
@@ -54,6 +55,13 @@ public class Cara {
 	{
 		tipo = newtipo;
 	}
+        
+        // El algoritmo Adaboost obtiene y establece el peso para la cara
+        public double getProbabilidad() { return probabilidad; }
+        public void setProbabilidad(double probabilidad)
+        {
+            this.probabilidad = probabilidad;
+        }
         
         // Obtiene el menor punto
         public int getMin() 
