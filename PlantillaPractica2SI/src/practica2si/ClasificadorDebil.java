@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class ClasificadorDebil 
 {
     // NUMCLASIFICADORES
-    private int c;
+    private int numC;
     // Los que generaré a partir de c(NUMCLASIFICADORES)
     private ArrayList<Hiperplano> hp;
     // Hiperplano que mejor clasifique
@@ -21,19 +21,19 @@ public class ClasificadorDebil
     // Conjunto de aprendizaje
     
     // Genera c hiperplanos aleatorios
-    public ClasificadorDebil(int c)
+    public ClasificadorDebil(int numC)
     {
-        this.c = c;
+        this.numC = numC;
         hp = new ArrayList<Hiperplano>();
-        for(int i = 0; i < this.c; i++)
+        for(int i = 0; i < this.numC; i++)
             hp.add(new Hiperplano());
     }
     // Genera c hiperplanos a partir de los puntos(min,max)
-    public ClasificadorDebil(int c, int[] minPuntos, int[] maxPuntos)
+    public ClasificadorDebil(int numC, int[] minPuntos, int[] maxPuntos)
     {
-        this.c = c;
+        this.numC = numC;
         hp = new ArrayList<Hiperplano>();
-        for(int i = 0; i < this.c; i++)
+        for(int i = 0; i < this.numC; i++)
             hp.add(new Hiperplano(minPuntos, maxPuntos));
     }
     
@@ -54,16 +54,16 @@ public class ClasificadorDebil
                 // Evalua el punto y devuelva en que parte se encuentra
                 double res = hp.get(i).evaluar(aprender.get(j).getData());
                 int tipoCara = aprender.get(j).getTipo();
-                if(res < 0)
+                if(res > 0)
                 {
-                    if(tipoCara == - 1)
+                    if(tipoCara == 1)
                         acierto++;
                     else
                         fallo++;
                 }
                 else
                 {
-                    if(tipoCara == 1)
+                    if(tipoCara == - 1)
                         acierto++;
                     else
                         fallo++;
@@ -77,7 +77,6 @@ public class ClasificadorDebil
     
     private void getMejorHiperplano(int[] a, int[] f, int tamCara)
     {
-        System.out.println("Hiperplano  Aciertos    Fallos  TasaAciertos");
         // Pivote
         int mejor = 0;
         // Busco el mejor
@@ -87,10 +86,11 @@ public class ClasificadorDebil
                 mejor = i;
             float tasaAciertos = (float) a[i]/tamCara;
             // Voy imprimiendo los resultados obtenidos
-            System.out.println(i + "    " + a[i] + " " + f[i] + "   " +
-                    tasaAciertos);
+            imprimirHiperplano(i, a[i], f[i], tasaAciertos);
         }
+        // Asigno el mejor
         this.mejor = hp.get(mejor);
+        System.out.println("EL MEJOR HIPERPLANO ES EL " + mejor);
     }
     
     public void testMejor(ArrayList<Cara> lt)
@@ -100,24 +100,37 @@ public class ClasificadorDebil
         {
             double res = this.mejor.evaluar(lt.get(i).getData());
             int tipoCara = lt.get(i).getTipo();
-            if(res < 0)
-            {
-                if(tipoCara == - 1)
-                    acierto++;
+            if(res > 0)
+                {
+                    if(tipoCara == 1)
+                        acierto++;
+                    else
+                        fallo++;
+                }
                 else
-                    fallo++;
-            }
-            else
-            {
-                if(tipoCara == 1)
-                    acierto++;
-                else
-                    fallo++;
-            }
+                {
+                    if(tipoCara == - 1)
+                        acierto++;
+                    else
+                        fallo++;
+                }
         }
         float tasaAciertos = (float) acierto/lt.size();
         System.out.println("Test mejor hiperplano");
-        System.out.println("Aciertos    Fallos  TasaAciertos");
-        System.out.println(acierto + "  " + fallo + "   " + tasaAciertos);
+        // Imprimo los resultados obtenidos
+        imprimirHiperplano(-1,acierto, fallo, tasaAciertos);
+        
+    }
+    
+    private void imprimirHiperplano(int pos, int acierto, int fallo, float tasa) {
+        // Muestra el num de hiperplano
+        if(pos != -1)
+            System.out.println("Hiperplano: " + pos);
+        
+        System.out.println("- Aciertos: " + acierto);
+        System.out.println("- Fallos: " + fallo);
+        System.out.println("- TASA DE ACIERTOS: " + tasa*100 + "%");
+        System.out.println("------------------------------");
+        System.out.println("");
     }
 }

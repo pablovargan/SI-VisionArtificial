@@ -30,4 +30,7 @@
 > 
 > **Modificado** en Hiperplano el término C que mejora la tasa de aciertos y voltea el resultado llegan a generar un 90% de aciertos. (Comentados los errores en la implementación).
 
+01/12/2013
+> Comentado y refactorizado el código.
+
 

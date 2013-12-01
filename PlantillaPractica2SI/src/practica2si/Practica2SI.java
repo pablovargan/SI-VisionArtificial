@@ -40,7 +40,7 @@ public class Practica2SI {
     {
         int cont;
 	int aciertos, clase;
-	System.out.println("Sistemas Inteligentes. Segunda practica");
+	System.out.println("Sistemas Inteligentes. Segunda práctica");
 		
 	getFileNames(rutaDir+"cara/");
 	listaAprendizaje = new ArrayList<Cara>();
