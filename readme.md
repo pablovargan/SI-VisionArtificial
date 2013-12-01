@@ -32,5 +32,6 @@
 
 01/12/2013
 > Comentado y refactorizado el código.
+> Creada la clase clasificador fuerte.
 
 
