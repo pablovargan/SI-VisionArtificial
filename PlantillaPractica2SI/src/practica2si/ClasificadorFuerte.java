@@ -20,7 +20,9 @@ public class ClasificadorFuerte {
         this.clasificadoresDebiles = new ArrayList<ClasificadorDebil>();
     }
     
-    public ClasificadorFuerte adaBoost(int numClasificadores, ArrayList<Cara>listaAprendizaje, 
+    public int numClasificadoresEncontrados() { return this.clasificadoresDebiles.size(); }
+    
+    public void adaBoost(int numClasificadores, ArrayList<Cara>listaAprendizaje, 
             int numCandidatos, int[] minimos, int[] maximos)
     {
         // Inicializar la distribucion de pesos D(i) = 1/N sobre el conjunto de entrenamiento
@@ -29,7 +31,7 @@ public class ClasificadorFuerte {
             c.setPeso(1/listaAprendizaje.size());
         // Empiezo a buscar-entrenar los clasificadores debiles para crear un
         // clasificador fuerte
-        ClasificadorFuerte cF = new ClasificadorFuerte();
+        //ClasificadorFuerte cF = new ClasificadorFuerte();
         for(int i = 0; i < numClasificadores; i++)
         {
             // Inicialmente, cuando T=1 todos los ejemplos son igualmente probables
@@ -46,8 +48,8 @@ public class ClasificadorFuerte {
                     cDebil = aux;
             }
             // Añado el mejor que he obtenido a
-            cF.clasificadoresDebiles.add(cDebil);
-            
+            //cF.clasificadoresDebiles.add(cDebil);
+            this.clasificadoresDebiles.add(cDebil);
             // 2. Calcular el valor de confianza para ht(de ese clasificador)
             // Al realizar el test obtengo el valor de confianza, entonces lo recojo del
             // del clasificador debil elegido
@@ -83,7 +85,8 @@ public class ClasificadorFuerte {
             int aciertos = 0;
             for(Cara c: listaAprendizaje)
             {
-                if(cF.H(c) == c.getTipo())
+                //if(cF.H(c) == c.getTipo())
+                if(this.H(c) == c.getTipo())    
                     aciertos++;
             }
             System.out.println("Clasificador " + (i + 1) + ": " + aciertos + "/" + listaAprendizaje.size() + " (" + (100.0 * aciertos/listaAprendizaje.size()) + "%)");
@@ -98,7 +101,7 @@ public class ClasificadorFuerte {
             }
         }
         // Devuelve un clasificador fuerte con el conjunto de clasificadores debiles
-        return cF;   
+        //return cF;
     }
     
     public double H(Cara cara)

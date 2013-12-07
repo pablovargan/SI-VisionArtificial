@@ -96,7 +96,7 @@ public class ClasificadorDebil
             }
             float tasaAciertos = (float) a[i]/tamCara;
             // Voy imprimiendo los resultados obtenidos
-            imprimirHiperplano(i, a[i], f[i], tasaAciertos);
+            //imprimirHiperplano(i, a[i], f[i], tasaAciertos);
         }
         // Asigno el mejor
         this.mejor = hp.get(mejor);
