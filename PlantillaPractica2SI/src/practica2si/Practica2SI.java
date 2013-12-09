@@ -69,16 +69,20 @@ public class Practica2SI {
 	//Separamos los conjuntos de aprendizaje y test
 	CrearConjuntoAprendizajeyTest();
 	System.out.println(listaAprendizaje.size()+" imagenes para aprendizaje, "+listaTest.size()+" imagenes para el test ("+(testRate*100)+"%)");
-
+        // Obtengo los 2 vectores con min y max
+        int []minimos = this.getMinimos();
+        int []maximos = this.getMaximos();
+        ClasificadorFuerte cFuerte = new ClasificadorFuerte();
 	//Comenzamos el aprendizaje
 	long t1 = System.currentTimeMillis();
         //TODO Aquí debéis poner vuestra llamada al método de entrenamiento de AdaBoost
+        cFuerte.adaBoost(NUM_CLASIFICADORES, listaAprendizaje, 4, minimos, maximos);
 	long t2 = System.currentTimeMillis();
 	long time;
         
 	time = t2 - t1;
-	System.out.println("Tiempo empleado en el aprendizaje: "+((float)time/1000f)+" segundos");
-	System.out.println("Número de clasificadores encontrados: "); //TODO añadir el valor
+	//System.out.println("Tiempo empleado en el aprendizaje: "+((float)time/1000f)+" segundos");
+	//System.out.println("Número de clasificadores encontrados: " + cFuerte.numClasificadoresEncontrados() ); //TODO añadir el valor
 	/*
         //Test final
         if(VERBOSE)
@@ -105,17 +109,12 @@ public class Practica2SI {
 	}
 	System.out.println("TEST. Tasa de aciertos: "+((float)aciertos/(float)(listaAprendizaje.size())*100.0f)+"%");
         */
-        // Obtengo los 2 vectores con min y max
-        int []minimos = this.getMinimos();
-        int []maximos = this.getMaximos();
         //Hiperplano h = new Hiperplano(minimos,maximos);
         // Ejemplo creando hiperplanos con los puntos
-        ClasificadorDebil cd = new ClasificadorDebil(NUM_CLASIFICADORES, minimos, maximos);
-        cd.conjuntoAprendizaje(listaAprendizaje);
+        //ClasificadorDebil cd = new ClasificadorDebil(NUM_CLASIFICADORES, minimos, maximos);
+        //cd.conjuntoAprendizaje(listaAprendizaje);
         //cd.testMejor(listaTest);
-        
-        //ClasificadorFuerte cf = new ClasificadorFuerte();
-        //cf.adaBoost(NUM_CLASIFICADORES, listaAprendizaje, 9, minimos, maximos);
+
     }
     
     /**

@@ -22,7 +22,7 @@ public class Hiperplano
     private double[] vector;
     // C
     private double C;
-    // Error
+    // Tasa de error del hiperplano
     private double error;
     
     public Hiperplano() 
@@ -46,9 +46,12 @@ public class Hiperplano
         // Calculo C como punto en el espacio aleatorio
         for(int i = 0; i < DIMENSION; i++)
             C += puntos[i] * vector[i];
-            //C -= vector[i] * (((int) (Math.random() * 1000)) % (MAX_VALUE + 1));
         // Inicializo el error
         this.error = 0.0;
+    }
+    public Hiperplano(double error) 
+    {
+        this.error = error;  
     }
     public Hiperplano(int[] minPuntos, int[] maxPuntos)
     {
@@ -86,7 +89,7 @@ public class Hiperplano
     }
     
     public double[] getVector() { return vector; }
-    // Error del hiperplano
+    // Tasa de error del hiperplano
     public void setError(double error) { this.error = error; }
     public double getError() { return error; }
 }
