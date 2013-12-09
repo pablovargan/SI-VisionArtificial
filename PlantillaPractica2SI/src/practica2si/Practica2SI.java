@@ -41,6 +41,9 @@ public class Practica2SI {
         int cont;
 	int aciertos, clase;
 	System.out.println("Sistemas Inteligentes. Segunda práctica");
+        System.out.println("- Clasificadores Debiles: " + NUM_CLASIFICADORES);
+        System.out.println("- Número de iteraciones: " + NUM_ITERACIONES);
+        System.out.println("---------------------------------------");
 		
 	getFileNames(rutaDir+"cara/");
 	listaAprendizaje = new ArrayList<Cara>();
@@ -76,23 +79,22 @@ public class Practica2SI {
 	//Comenzamos el aprendizaje
 	long t1 = System.currentTimeMillis();
         //TODO Aquí debéis poner vuestra llamada al método de entrenamiento de AdaBoost
-        cFuerte.adaBoost(NUM_CLASIFICADORES, listaAprendizaje, 4, minimos, maximos);
+        cFuerte.adaBoost(NUM_CLASIFICADORES, listaAprendizaje, NUM_ITERACIONES, minimos, maximos);
 	long t2 = System.currentTimeMillis();
 	long time;
         
 	time = t2 - t1;
-	//System.out.println("Tiempo empleado en el aprendizaje: "+((float)time/1000f)+" segundos");
-	//System.out.println("Número de clasificadores encontrados: " + cFuerte.numClasificadoresEncontrados() ); //TODO añadir el valor
-	/*
+	System.out.println("Tiempo empleado en el aprendizaje: "+((float)time/1000f)+" segundos");
+	System.out.println("Número de clasificadores encontrados: " + cFuerte.numClasificadoresEncontrados() ); //TODO añadir el valor
+	System.out.println("---------------------------------------");
+        
         //Test final
         if(VERBOSE)
         {
             aciertos = 0;
             for(Cara c: listaAprendizaje)
             {
-                clase = -1;  //TODO Cambiar -1 por la llamada a clasificar utilizando el clasificador fuerte
-                        //de Adaboost para el ejemplo c
-                if(clase == c.getTipo())
+                if(cFuerte.determinarCara(c) == c.getTipo())
                     aciertos++;
             }
             System.out.println("APRENDIZAJE. Tasa de aciertos: "+((float)aciertos/(float)(listaAprendizaje.size())*100.0f)+"%");
@@ -102,19 +104,10 @@ public class Practica2SI {
 	aciertos = 0;
 	for(Cara c: listaTest)
 	{
-		clase = -1;  //TODO Cambiar -1 por la llamada a clasificar utilizando el clasificador fuerte
-                            //de Adaboost para el ejemplo c
-		if(clase == c.getTipo())
+		if(cFuerte.determinarCara(c) == c.getTipo())
 			aciertos++;
 	}
 	System.out.println("TEST. Tasa de aciertos: "+((float)aciertos/(float)(listaAprendizaje.size())*100.0f)+"%");
-        */
-        //Hiperplano h = new Hiperplano(minimos,maximos);
-        // Ejemplo creando hiperplanos con los puntos
-        //ClasificadorDebil cd = new ClasificadorDebil(NUM_CLASIFICADORES, minimos, maximos);
-        //cd.conjuntoAprendizaje(listaAprendizaje);
-        //cd.testMejor(listaTest);
-
     }
     
     /**

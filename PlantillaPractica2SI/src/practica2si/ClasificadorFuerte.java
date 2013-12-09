@@ -13,17 +13,18 @@ import java.util.ArrayList;
 public class ClasificadorFuerte {
     // Se compone de un array de ClasificadoresDebiles
     private ArrayList<ClasificadorDebil> clasificadoresDebiles;
+    private ClasificadorDebil elegido;
     
     // Constructor
     public ClasificadorFuerte() 
     {
         this.clasificadoresDebiles = new ArrayList<ClasificadorDebil>();
+        this.elegido = null;
     }
     
-    public int numClasificadoresEncontrados() { return this.clasificadoresDebiles.size(); }
-    
+    public int numClasificadoresEncontrados() { return clasificadoresDebiles.size(); }
     // Comprueba si es cara o no
-    private int determinarCara(Cara c)
+    public int determinarCara(Cara c)
     { 
         double res = 0.0;
         for(ClasificadorDebil cDebil: this.clasificadoresDebiles)
@@ -40,6 +41,9 @@ public class ClasificadorFuerte {
     public void adaBoost(int numClasificadores, ArrayList<Cara>listaAprendizaje, 
             int numCandidatos, int[] minimos, int[] maximos)
     {
+        // Clasificador debil candidato
+        ClasificadorDebil auxCandidato = null;
+        int []aciertosCandidato = new int[numClasificadores];
         // Inicializar la distribucion de pesos D(i) = 1/N sobre el conjunto de entrenamiento
         // N es el tamaño del vector
         for(Cara c: listaAprendizaje)
@@ -85,7 +89,8 @@ public class ClasificadorFuerte {
                 // Ahora actualizo la distribucion de pesos
                 c.setPeso(c.getPeso() * actualizar / Z);
             }
-            // 4. Actualizar el clasificador fuerte
+            // 4. Actualizar el clasificador fuerte y me quedo con el que mejor
+            // 
             int aciertos = 0;
             for(Cara cara: listaAprendizaje)
             {
@@ -95,14 +100,33 @@ public class ClasificadorFuerte {
                 // Si son iguales, es un acierto y es valido ese clasificador
                 if(pos == tipoCara)
                     aciertos++;
-                //System.out.println("Aciertos: " + aciertos);
             }
+            aciertosCandidato[i] = aciertos;
             System.out.println("Clasificador " + (i + 1) + ": " + aciertos + "/" + listaAprendizaje.size() + " (" + (100.0 * aciertos/listaAprendizaje.size()) + "%)");
             // Si obtengo los mismos aciertos que el corto la ejecución
             if(aciertos == listaAprendizaje.size())
                 break;
         }
+        getClasificadorDebilCandidato(aciertosCandidato, listaAprendizaje.size());
         // Devuelve un clasificador fuerte con el conjunto de clasificadores debiles
-        //return cF;
+    }
+    
+    private void getClasificadorDebilCandidato(int []aciertosCandidato,
+            int tamListaCaras)
+    {
+        int aciertos = 0, numClasificador = 0;
+        for(int i = 0; i < aciertosCandidato.length; i++) 
+        {
+            if(aciertosCandidato[i] > aciertos)
+            {
+                aciertos = aciertosCandidato[i];
+                numClasificador = i;
+            }
+        }
+        // Asigno como el clasificador elegido
+        this.elegido = clasificadoresDebiles.get(numClasificador);
+        // Lo muestro por pantalla
+        System.out.println("Clasificador elegido " + (numClasificador + 1) + ": " + aciertos 
+                + "/" + tamListaCaras + " (" + (100.0 * aciertos/tamListaCaras) + "%)");
     }
 }
