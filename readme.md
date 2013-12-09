@@ -34,4 +34,12 @@
 > Comentado y refactorizado el código.
 > Creada la clase clasificador fuerte.
 
+9/12/2013
+> Reimplementada la clase Hiperplano y clasificador debil con el método evaluar para que determine en que parte del plano se encuentra.
+> Rediseñado el conjunto de aprendizaje para obtener mejores resultados.
+> Implementado el clasificador fuerte para que a partir de de varios clasificadores débiles lo entrenemos para mejorarlo y quedarnos con el mejor que valor de confianza nos de.
+> Metodo que nos da el clasificador débil elegido para el clasificador fuerte.
+> **TODO** Obtener gráficas de resultados, evitar sobre-entrenamiento y diseñar-implementar el perceptron simple.
+ 
+
 

@@ -84,8 +84,9 @@ public class ClasificadorFuerte {
                 // Si acierto --> -valorConfianza, si no es +
                 if(cDebil.determinarPunto(aux, c) != c.getTipo())
                     actualizar = Math.pow(Math.E,valorConfianza);
+                // ¡ACIERTO!
                 else
-                    actualizar = Math.pow(Math.E, -valorConfianza);
+                    actualizar = Math.pow(Math.E,-valorConfianza);
                 // Ahora actualizo la distribucion de pesos
                 c.setPeso(c.getPeso() * actualizar / Z);
             }
