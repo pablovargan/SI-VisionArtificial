@@ -105,6 +105,7 @@ public class ClasificadorDebil
         // Asigno el valor de confiaza al terminar el aprendizaje por completo
         // y haber obtenido el error
         this.valorConfianza = 0.5 * Math.log10((1 - error) / error);
+        System.out.println("VALOR DE CONFIANZA: " + valorConfianza);
         System.out.println("EL MEJOR HIPERPLANO ES EL " + mejor);
         System.out.println("CON TASA DE ERROR DE " + this.mejor.getError());
     }

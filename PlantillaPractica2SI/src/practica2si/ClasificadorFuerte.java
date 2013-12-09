@@ -27,6 +27,7 @@ public class ClasificadorFuerte {
         // N es el tamaño del vector
         for(Cara c: listaAprendizaje)
             c.setPeso(1/listaAprendizaje.size());
+
         // Empiezo a buscar-entrenar los clasificadores debiles para crear un
         // clasificador fuerte
         ClasificadorFuerte cF = new ClasificadorFuerte();
@@ -52,7 +53,8 @@ public class ClasificadorFuerte {
             // Al realizar el test obtengo el valor de confianza, entonces lo recojo del
             // del clasificador debil elegido
             double valorConfianza = cDebil.getValorConfianza();
-            
+            System.out.println("Confianza: "+ valorConfianza);
+            /*
             // 3. Actualizar distribución D sobre el conjunto de entrenamiento
             // Z = Factor de normalizacion
             double Z = 0.0;
@@ -86,6 +88,7 @@ public class ClasificadorFuerte {
                 if(cF.H(c) == c.getTipo())
                     aciertos++;
             }
+            System.out.println("Aciertos: " + aciertos);
             System.out.println("Clasificador " + (i + 1) + ": " + aciertos + "/" + listaAprendizaje.size() + " (" + (100.0 * aciertos/listaAprendizaje.size()) + "%)");
             // Al final de esta iteración se comprueba qué tasa de error se obtiene al evaluar el
             // conjunto de entrenamiento sobre el clasificador fuerte; es decir, sobre la totalidad
@@ -96,6 +99,7 @@ public class ClasificadorFuerte {
                 System.out.println("Obtenido el 100%");
 		break;
             }
+            */
         }
         // Devuelve un clasificador fuerte con el conjunto de clasificadores debiles
         return cF;   

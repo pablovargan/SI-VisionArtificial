@@ -108,11 +108,14 @@ public class Practica2SI {
         // Obtengo los 2 vectores con min y max
         int []minimos = this.getMinimos();
         int []maximos = this.getMaximos();
-        
+        //Hiperplano h = new Hiperplano(minimos,maximos);
         // Ejemplo creando hiperplanos con los puntos
         ClasificadorDebil cd = new ClasificadorDebil(NUM_CLASIFICADORES, minimos, maximos);
         cd.conjuntoAprendizaje(listaAprendizaje);
-        cd.testMejor(listaTest);
+        //cd.testMejor(listaTest);
+        
+        //ClasificadorFuerte cf = new ClasificadorFuerte();
+        //cf.adaBoost(NUM_CLASIFICADORES, listaAprendizaje, 9, minimos, maximos);
     }
     
     /**

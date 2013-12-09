@@ -28,12 +28,13 @@ public class Hiperplano
     public Hiperplano() 
     {
         C = 0.0;
-        // Genero un hiperplano con valores aleatorios entre 1 y 255
         puntos = new int[DIMENSION];
         vector = new double[DIMENSION];
         for(int i = 0; i < DIMENSION; i++) 
         {
+            // Genero un hiperplano con valores aleatorios entre 1 y 255
             puntos[i] = (int)(Math.random() * MAX_VALUE);
+            //Puntos entre -1 y 1
             vector[i] = (double) (Math.random() * (maxV - minV)) + minV;
         }
         // Normalizo el vector para que tenga la misma dirección y sentido
@@ -57,6 +58,7 @@ public class Hiperplano
         vector = new double[DIMENSION];
         for(int i = 0; i < DIMENSION; i++) 
         {
+            // Los puntos ya los tengo porque los he cogido aleatoriamente
             puntos[i] = (int)(Math.random() * (maxPuntos[i] - minPuntos[i])) + minPuntos[i];
             vector[i] = (Math.random() * (maxV - minV)) + minV;
         }

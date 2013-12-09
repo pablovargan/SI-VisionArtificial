@@ -3,6 +3,7 @@ package practica2si;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
 import javax.imageio.ImageIO;
 
 /**
@@ -71,7 +72,7 @@ public class Cara {
         {
             int minimo = 576;
             for(int i = 0; i < data.length; i++) {
-                if(data[i] < 576)
+                if(data[i] < minimo)
                     minimo = data[i];
             }
             return minimo;
