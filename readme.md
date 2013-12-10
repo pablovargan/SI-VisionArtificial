@@ -40,6 +40,10 @@
 > Implementado el clasificador fuerte para que a partir de de varios clasificadores débiles lo entrenemos para mejorarlo y quedarnos con el mejor que valor de confianza nos de.
 > Metodo que nos da el clasificador débil elegido para el clasificador fuerte.
 > **TODO** Obtener gráficas de resultados, evitar sobre-entrenamiento y diseñar-implementar el perceptron simple.
+
+10/12/2013
+> Creada la rama develop para modificar que se cree un hiperplano para un único clasificador débil y luego entrenar estos en el clasificador débil y obtener los mejores para entrenarlos y mejorarlos.
+> **TODO** Pruebas nuevas de clasificador débil.
  
 
 
