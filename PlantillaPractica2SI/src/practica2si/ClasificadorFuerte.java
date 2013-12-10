@@ -1,4 +1,4 @@
-/*
+/*S
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -28,10 +28,7 @@ public class ClasificadorFuerte {
     { 
         double res = 0.0;
         for(ClasificadorDebil cDebil: this.clasificadoresDebiles)
-        {
-            Hiperplano aux = cDebil.getMejor();
-            res += cDebil.getValorConfianza() * cDebil.determinarPunto(aux, c);
-        }
+            res += cDebil.getValorConfianza() * cDebil.determinarPunto(c);
         // Obtengo donde se encuentra contenido en el plano
         if(res < 0.0)
             return -1;
@@ -59,10 +56,10 @@ public class ClasificadorFuerte {
             for(int j = 0; j < numCandidatos; j++)
             {
                 // Me debo quedar con el mejor 
-                ClasificadorDebil aux = new ClasificadorDebil(numClasificadores, minimos, maximos);
+                ClasificadorDebil aux = new ClasificadorDebil(minimos, maximos);
                 aux.conjuntoAprendizaje(listaAprendizaje);
                 // Ahora debo elegir el mejor buscando el que menor tasa de error tenga de todos los clasificadores
-                if(cDebil == null || aux.getMejor().getError() < cDebil.getMejor().getError())
+                if(cDebil == null || aux.getError() < cDebil.getError())
                     cDebil = aux;
             }
             // Añado el mejor que he obtenido a
@@ -80,9 +77,8 @@ public class ClasificadorFuerte {
             for(Cara c: listaAprendizaje) 
             {
                 double actualizar = 0.0;
-                Hiperplano aux = cDebil.getMejor();
                 // Si acierto --> -valorConfianza, si no es +
-                if(cDebil.determinarPunto(aux, c) != c.getTipo())
+                if(cDebil.determinarPunto(c) != c.getTipo())
                     actualizar = Math.pow(Math.E,valorConfianza);
                 // ¡ACIERTO!
                 else
