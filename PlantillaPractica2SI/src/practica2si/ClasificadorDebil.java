@@ -14,14 +14,14 @@ public class ClasificadorDebil
 {
     // NUMCLASIFICADORES
     private int numC;
-    // Los que generaré a partir de c(NUMCLASIFICADORES)
+    // Los que generaré a partir de c(numCandidatos)
     private ArrayList<Hiperplano> hp;
     // Hiperplano que mejor clasifique
     private Hiperplano mejor;
     // Valor de confianza para este clasificador
     private double valorConfianza;
     // Genera c hiperplanos aleatorios
-    public ClasificadorDebil(int numC)
+    public ClasificadorDebil(int numCandidatos)
     {
         this.numC = numC;
         hp = new ArrayList<Hiperplano>();

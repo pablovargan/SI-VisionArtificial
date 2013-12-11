@@ -13,13 +13,13 @@ import java.util.ArrayList;
 public class ClasificadorFuerte {
     // Se compone de un array de ClasificadoresDebiles
     private ArrayList<ClasificadorDebil> clasificadoresDebiles;
-    private ClasificadorDebil elegido;
+    private ClasificadorDebil mejor;
     
     // Constructor
     public ClasificadorFuerte() 
     {
         this.clasificadoresDebiles = new ArrayList<ClasificadorDebil>();
-        this.elegido = null;
+        this.mejor = null;
     }
     
     public int numClasificadoresEncontrados() { return clasificadoresDebiles.size(); }
@@ -125,9 +125,9 @@ public class ClasificadorFuerte {
             }
         }
         // Asigno como el clasificador elegido
-        this.elegido = clasificadoresDebiles.get(numClasificador);
+        this.mejor = clasificadoresDebiles.get(numClasificador);
         // Lo muestro por pantalla
-        System.out.println("Clasificador elegido " + (numClasificador + 1) + ": " + aciertos 
+        System.out.println("El que mejor clasifica es " + (numClasificador + 1) + ": " + aciertos 
                 + "/" + tamListaCaras + " (" + (100.0 * aciertos/tamListaCaras) + "%)");
     }
 }
