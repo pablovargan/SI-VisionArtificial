@@ -28,7 +28,7 @@ public class ClasificadorFuerte {
     { 
         double res = 0.0;
         for(ClasificadorDebil cDebil: this.clasificadoresDebiles)
-            res += cDebil.getValorConfianza() * cDebil.determinarPunto(c);
+            res += cDebil.getValorConfianza() * cDebil.determinarPunto(cDebil.getMejor() ,c);
         // Obtengo donde se encuentra contenido en el plano
         if(res < 0.0)
             return -1;
@@ -47,21 +47,15 @@ public class ClasificadorFuerte {
             c.setPeso((double) 1.0/listaAprendizaje.size());
         // Empiezo a buscar-entrenar los clasificadores debiles para crear un
         // clasificador fuerte
-        for(int i = 0; i < numClasificadores; i++)
+        for(int i = 0; i < numCandidatos; i++)
         {
             // Inicialmente, cuando T=1 todos los ejemplos son igualmente probables
             // 1. Entrenar clasificador debil para ht a partir de Dt
-            ClasificadorDebil cDebil = null;
             // Genero clasificadores debiles a partir de numCandidatos
-            for(int j = 0; j < numCandidatos; j++)
-            {
-                // Me debo quedar con el mejor 
-                ClasificadorDebil aux = new ClasificadorDebil(minimos, maximos);
-                aux.conjuntoAprendizaje(listaAprendizaje);
-                // Ahora debo elegir el mejor buscando el que menor tasa de error tenga de todos los clasificadores
-                if(cDebil == null || aux.getError() < cDebil.getError())
-                    cDebil = aux;
-            }
+            ClasificadorDebil cDebil = new ClasificadorDebil(numClasificadores,minimos,maximos);
+            // Me debo quedar con el mejor 
+            cDebil.conjuntoAprendizaje(listaAprendizaje);
+           // Recojo el mejor obtenido en el conjunto de aprendizaje
             // Añado el mejor que he obtenido a
             this.clasificadoresDebiles.add(cDebil);
             // 2. Calcular el valor de confianza para ht(de ese clasificador)
@@ -78,7 +72,7 @@ public class ClasificadorFuerte {
             {
                 double actualizar = 0.0;
                 // Si acierto --> -valorConfianza, si no es +
-                if(cDebil.determinarPunto(c) != c.getTipo())
+                if(cDebil.determinarPunto(cDebil.getMejor(),c) != c.getTipo())
                     actualizar = Math.pow(Math.E,valorConfianza);
                 // ¡ACIERTO!
                 else

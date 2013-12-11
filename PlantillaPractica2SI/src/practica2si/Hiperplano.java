@@ -22,6 +22,8 @@ public class Hiperplano
     private double[] vector;
     // C
     private double C;
+    // Tasa de error de ese hiperplano
+    private double error;
     
     public Hiperplano() 
     {
@@ -79,4 +81,7 @@ public class Hiperplano
     }
     
     public double[] getVector() { return vector; }
+    // Tasa de error del hiperplano
+    public void setError(double error) { this.error = error; }
+    public double getError() { return error; }
 }
