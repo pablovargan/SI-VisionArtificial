@@ -18,8 +18,6 @@ public class ClasificadorDebil
     private Hiperplano mejor;
     // Valor de confianza para este clasificador
     private double valorConfianza;
-    // Tasa de error del clasificador
-    private double error;
     
     // Constructor
     public ClasificadorDebil(int numClasificadores, int[] minPuntos, int[] maxPuntos)
@@ -28,14 +26,10 @@ public class ClasificadorDebil
        for(int i = 0; i < numClasificadores; i++)
            hiperplanos.add(new Hiperplano(minPuntos, maxPuntos));
        this.valorConfianza = 0.0;
-       this.error = 0.0;
     }
     // Devuelve el valor de confianza del clasificador debil
     public double getValorConfianza() { return valorConfianza; }
     public Hiperplano getMejor() { return mejor; }
-    // Tasa de error del clasificador
-    public void setError(double error) { this.error = error; }
-    public double getError() { return error; }
     
     // Determina donde se encuentra un punto en el hiperplano.
     // 0 si el punto esta contenido en el plano

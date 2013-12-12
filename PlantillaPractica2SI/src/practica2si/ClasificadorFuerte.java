@@ -36,7 +36,7 @@ public class ClasificadorFuerte {
             return 1;
     }
     public void adaBoost(int numClasificadores, ArrayList<Cara>listaAprendizaje, 
-            int numCandidatos, int[] minimos, int[] maximos)
+            int numIteraciones, int[] minimos, int[] maximos)
     {
         int []aciertosCandidato = new int[numClasificadores];
         // Inicializar la distribucion de pesos D(i) = 1/N sobre el conjunto de entrenamiento
@@ -45,7 +45,7 @@ public class ClasificadorFuerte {
             c.setPeso((double) 1.0/listaAprendizaje.size());
         // Empiezo a buscar-entrenar los clasificadores debiles para crear un
         // clasificador fuerte
-        for(int i = 0; i < numCandidatos; i++)
+        for(int i = 0; i < numIteraciones; i++)
         {
             // Inicialmente, cuando T=1 todos los ejemplos son igualmente probables
             // 1. Entrenar clasificador debil para ht a partir de Dt
@@ -69,7 +69,7 @@ public class ClasificadorFuerte {
             for(int j = 0; j < listaAprendizaje.size()-1; j++)
             {
                 double actualizar = 0.0;
-                Cara c = listaAprendizaje.get(i);
+                Cara c = listaAprendizaje.get(j);
                 // Si acierto --> valorConfianza, si no es -
                 if(cDebil.determinarPunto(cDebil.getMejor(),c) != c.getTipo())
                     actualizar = Math.pow(Math.E,-valorConfianza);
@@ -77,7 +77,7 @@ public class ClasificadorFuerte {
                 else
                     actualizar = Math.pow(Math.E,valorConfianza);
                 // Ahora actualizo la distribucion de pesos de la iteracion siguiente
-                listaAprendizaje.get(i+1).setPeso(c.getPeso() * actualizar / Z);
+                listaAprendizaje.get(j+1).setPeso(c.getPeso() * actualizar / Z);
             }
             // 4. Actualizar el clasificador fuerte y me quedo con el que mejor
             int aciertos = 0;
