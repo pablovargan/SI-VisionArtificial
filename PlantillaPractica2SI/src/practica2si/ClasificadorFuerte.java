@@ -38,8 +38,6 @@ public class ClasificadorFuerte {
     public void adaBoost(int numClasificadores, ArrayList<Cara>listaAprendizaje, 
             int numCandidatos, int[] minimos, int[] maximos)
     {
-        // Clasificador debil candidato
-        ClasificadorDebil auxCandidato = null;
         int []aciertosCandidato = new int[numClasificadores];
         // Inicializar la distribucion de pesos D(i) = 1/N sobre el conjunto de entrenamiento
         // N es el tamaño del vector
@@ -55,7 +53,7 @@ public class ClasificadorFuerte {
             ClasificadorDebil cDebil = new ClasificadorDebil(numClasificadores,minimos,maximos);
             // Me debo quedar con el mejor 
             cDebil.conjuntoAprendizaje(listaAprendizaje);
-           // Recojo el mejor obtenido en el conjunto de aprendizaje
+            // Recojo el mejor obtenido en el conjunto de aprendizaje
             // Añado el mejor que he obtenido a
             this.clasificadoresDebiles.add(cDebil);
             // 2. Calcular el valor de confianza para ht(de ese clasificador)
@@ -68,24 +66,24 @@ public class ClasificadorFuerte {
             // Dt(c) el peso de la cara c en esa iteracion de listaAprendizaje
             for(Cara c: listaAprendizaje)
                 Z += c.getPeso();
-            for(Cara c: listaAprendizaje) 
+            for(int j = 0; j < listaAprendizaje.size()-1; j++)
             {
                 double actualizar = 0.0;
-                // Si acierto --> -valorConfianza, si no es +
+                Cara c = listaAprendizaje.get(i);
+                // Si acierto --> valorConfianza, si no es -
                 if(cDebil.determinarPunto(cDebil.getMejor(),c) != c.getTipo())
-                    actualizar = Math.pow(Math.E,valorConfianza);
+                    actualizar = Math.pow(Math.E,-valorConfianza);
                 // ¡ACIERTO!
                 else
-                    actualizar = Math.pow(Math.E,-valorConfianza);
-                // Ahora actualizo la distribucion de pesos
-                c.setPeso(c.getPeso() * actualizar / Z);
+                    actualizar = Math.pow(Math.E,valorConfianza);
+                // Ahora actualizo la distribucion de pesos de la iteracion siguiente
+                listaAprendizaje.get(i+1).setPeso(c.getPeso() * actualizar / Z);
             }
             // 4. Actualizar el clasificador fuerte y me quedo con el que mejor
-            // 
             int aciertos = 0;
             for(Cara cara: listaAprendizaje)
             {
-                 // Evalua el punto y devuelve en que parte se encuentra
+                // Evalua el punto y devuelve en que parte se encuentra
                 int pos = this.determinarCara(cara);
                 int tipoCara = cara.getTipo();
                 // Si son iguales, es un acierto y es valido ese clasificador
@@ -99,7 +97,6 @@ public class ClasificadorFuerte {
                 break;
         }
         getClasificadorDebilCandidato(aciertosCandidato, listaAprendizaje.size());
-        // Devuelve un clasificador fuerte con el conjunto de clasificadores debiles
     }
     
     private void getClasificadorDebilCandidato(int []aciertosCandidato,
