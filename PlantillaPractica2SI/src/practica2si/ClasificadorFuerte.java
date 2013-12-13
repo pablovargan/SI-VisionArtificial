@@ -27,6 +27,7 @@ public class ClasificadorFuerte {
     public int determinarCara(Cara c)
     { 
         double res = 0.0;
+        // A partir de todos los clasificadores que tengo, para actualizar el fuerte
         for(ClasificadorDebil cDebil: this.clasificadoresDebiles)
             res += cDebil.getValorConfianza() * cDebil.determinarPunto(cDebil.getMejor() ,c);
         // Obtengo donde se encuentra contenido en el plano
@@ -38,7 +39,7 @@ public class ClasificadorFuerte {
     public void adaBoost(int numClasificadores, ArrayList<Cara>listaAprendizaje, 
             int numIteraciones, int[] minimos, int[] maximos)
     {
-        int []aciertosCandidato = new int[numClasificadores];
+        int []aciertosCandidato = new int[numIteraciones];
         // Inicializar la distribucion de pesos D(i) = 1/N sobre el conjunto de entrenamiento
         // N es el tamaño del vector
         for(Cara c: listaAprendizaje)
@@ -66,7 +67,7 @@ public class ClasificadorFuerte {
             // Dt(c) el peso de la cara c en esa iteracion de listaAprendizaje
             for(Cara c: listaAprendizaje)
                 Z += c.getPeso();
-            for(int j = 0; j < listaAprendizaje.size()-1; j++)
+            for(int j = 0; j < listaAprendizaje.size() - 1; j++)
             {
                 double actualizar = 0.0;
                 Cara c = listaAprendizaje.get(j);
@@ -91,7 +92,7 @@ public class ClasificadorFuerte {
                     aciertos++;
             }
             aciertosCandidato[i] = aciertos;
-            System.out.println("Clasificador " + (i + 1) + ": " + aciertos + "/" + listaAprendizaje.size() + " (" + (100.0 * aciertos/listaAprendizaje.size()) + "%)");
+            System.out.println("Iteración " + (i + 1) + ": " + aciertos + "/" + listaAprendizaje.size() + " (" + (100.0 * aciertos/listaAprendizaje.size()) + "%)");
             // Si obtengo los mismos aciertos que el corto la ejecución
             if(aciertos == listaAprendizaje.size())
                 break;
@@ -102,19 +103,19 @@ public class ClasificadorFuerte {
     private void getClasificadorDebilCandidato(int []aciertosCandidato,
             int tamListaCaras)
     {
-        int aciertos = 0, numClasificador = 0;
+        int aciertos = 0, numIteracion = 0;
         for(int i = 0; i < aciertosCandidato.length; i++) 
         {
             if(aciertosCandidato[i] > aciertos)
             {
                 aciertos = aciertosCandidato[i];
-                numClasificador = i;
+                numIteracion = i;
             }
         }
         // Asigno como el clasificador elegido
-        this.elegido = clasificadoresDebiles.get(numClasificador);
+        this.elegido = clasificadoresDebiles.get(numIteracion);
         // Lo muestro por pantalla
-        System.out.println("Clasificador elegido " + (numClasificador + 1) + ": " + aciertos 
+        System.out.println("Iteración elegida " + (numIteracion + 1) + ": " + aciertos 
                 + "/" + tamListaCaras + " (" + (100.0 * aciertos/tamListaCaras) + "%)");
     }
 }

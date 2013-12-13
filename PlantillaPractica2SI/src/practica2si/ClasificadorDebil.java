@@ -80,7 +80,6 @@ public class ClasificadorDebil
         this.valorConfianza = 0.5 * Math.log((1 - mejor.getError())/mejor.getError());
     }
             
-    
     // Entreno el clasificador a partir del mejor hiperplano
     public void conjuntoTestMejor(ArrayList<Cara> listaTest)
     {
@@ -100,17 +99,5 @@ public class ClasificadorDebil
         // Imprimo los resultados obtenidos
         System.out.println("- Tasa de fallos: " + tasaError*100 + "%");
         System.out.println("----------------------");
-    }
-    
-    private void imprimirHiperplano(int pos, int acierto, int fallo, float tasa) {
-        // Muestra el num de hiperplano
-        if(pos != -1)
-            System.out.println("Hiperplano: " + pos);
-        
-        System.out.println("- Aciertos: " + acierto);
-        System.out.println("- Fallos: " + fallo);
-        System.out.println("- TASA DE ACIERTOS: " + tasa*100 + "%");
-        System.out.println("------------------------------");
-        System.out.println("");
     }
 }
