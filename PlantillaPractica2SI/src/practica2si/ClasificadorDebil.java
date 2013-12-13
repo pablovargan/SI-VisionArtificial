@@ -12,37 +12,24 @@ import java.util.ArrayList;
  */
 public class ClasificadorDebil 
 {
-    // NUMCLASIFICADORES
-    private int numC;
-    // Los que generaré a partir de c(numCandidatos)
-    private ArrayList<Hiperplano> hp;
-    // Hiperplano que mejor clasifique
+   // Hiperplano que se crea para el clasificador debil
+    private ArrayList<Hiperplano> hiperplanos;
+    // Mejor hiperplano del clasificador
     private Hiperplano mejor;
     // Valor de confianza para este clasificador
     private double valorConfianza;
-    // Genera c hiperplanos aleatorios
-    public ClasificadorDebil(int numCandidatos)
-    {
-        this.numC = numC;
-        hp = new ArrayList<Hiperplano>();
-        for(int i = 0; i < this.numC; i++)
-            hp.add(new Hiperplano());
-        this.valorConfianza = 0.0;
-    }
-    // Genera c hiperplanos a partir de los puntos(min,max)
-    public ClasificadorDebil(int numC, int[] minPuntos, int[] maxPuntos)
-    {
-        this.numC = numC;
-        hp = new ArrayList<Hiperplano>();
-        for(int i = 0; i < this.numC; i++)
-            hp.add(new Hiperplano(minPuntos, maxPuntos));
-        this.valorConfianza = 0.0;
-    }
     
-    // Devuelve el que menor tasa de error devuelve
-    public Hiperplano getMejor() { return mejor; }
+    // Constructor
+    public ClasificadorDebil(int numClasificadores, int[] minPuntos, int[] maxPuntos)
+    {
+       this.hiperplanos = new ArrayList<Hiperplano>();
+       for(int i = 0; i < numClasificadores; i++)
+           hiperplanos.add(new Hiperplano(minPuntos, maxPuntos));
+       this.valorConfianza = 0.0;
+    }
     // Devuelve el valor de confianza del clasificador debil
     public double getValorConfianza() { return valorConfianza; }
+    public Hiperplano getMejor() { return mejor; }
     
     // Determina donde se encuentra un punto en el hiperplano.
     // 0 si el punto esta contenido en el plano
@@ -58,14 +45,14 @@ public class ClasificadorDebil
     
     // Clasifico el conjunto de aprendijaze y encuentro el mejor
     public void conjuntoAprendizaje(ArrayList<Cara> listaCaras) 
-    {    
-        for(Hiperplano h: hp)
+    {
+        for(Hiperplano hp: hiperplanos)
         {
             int er = 0;
             for(Cara c: listaCaras)
             {
                 // Evalua el punto y devuelve en que parte se encuentra
-                int pos = determinarPunto(h, c);
+                int pos = determinarPunto(hp,c);
                 int tipoCara = c.getTipo();
                 if(pos != tipoCara) {
                      er++;
@@ -73,30 +60,29 @@ public class ClasificadorDebil
             }
             // Calculo la tasa de error de ese hiperplano
             double tasaError = (double) er/listaCaras.size();
-            h.setError(tasaError);
+            hp.setError(tasaError);
         }
-        // Busco el mejor hiperplano con menor tasa de errores
-       getMejorHiperplano(listaCaras.size());
+        asignarMejorHiperplano();
     }
     
-    // Obtengo el mejor hiperplano y calculo el valor de confiazan de este clasificador
-    private void getMejorHiperplano(int tamCara)
+    private void asignarMejorHiperplano()
     {
-        Hiperplano aux = new Hiperplano(Double.MAX_VALUE);
-        for(Hiperplano h: hp) {
-            if(h.getError() < aux.getError())
-                aux = h;
+         // Busco el mejor hiperplano, es decir, el que menor tasa de error tenga
+        Hiperplano aux = null;
+        for(Hiperplano mejor: hiperplanos)
+        {
+            if(aux == null || mejor.getError() < aux.getError())
+                aux = mejor;
         }
-        // Calculo el valor de confianza del que menor tasa de error me ha dado
-        this.valorConfianza = 0.5 * Math.log((1-aux.getError())/aux.getError());
-        // Asigno el mejor 
+        // Lo asigno como mejor del clasificador debil
         this.mejor = aux;
-        //System.out.println("VALOR DE CONFIANZA: " + valorConfianza);
-        //System.out.println("CON TASA DE ERROR DE " + this.mejor.getError()*100 + "%");
+        // Calculo el valor de confianza del que menor tasa de error me ha dado
+        this.valorConfianza = 0.5 * Math.log((1 - mejor.getError())/mejor.getError());
     }
+            
     
     // Entreno el clasificador a partir del mejor hiperplano
-    public void conjuntoTest(ArrayList<Cara> listaTest)
+    public void conjuntoTestMejor(ArrayList<Cara> listaTest)
     {
         int er = 0;
         for(Cara c: listaTest)
@@ -109,6 +95,7 @@ public class ClasificadorDebil
             }
         }
         double tasaError = (double) er/listaTest.size();
+        // TODO: ¿Reasignar la tasa de error?
         System.out.println("Test mejor hiperplano");
         // Imprimo los resultados obtenidos
         System.out.println("- Tasa de fallos: " + tasaError*100 + "%");
