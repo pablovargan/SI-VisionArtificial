@@ -44,6 +44,10 @@
 10/12/2013
 > Creada la rama develop para modificar que se cree un hiperplano para un único clasificador débil y luego entrenar estos en el clasificador débil y obtener los mejores para entrenarlos y mejorarlos.
 > **TODO** Pruebas nuevas de clasificador débil.
+
+11/12/2013
+> Implementadas las pruebas y finalizados los TODO's
  
-
-
+13/12/2013
+> Finalizada la práctica
+> Publicada la realease
