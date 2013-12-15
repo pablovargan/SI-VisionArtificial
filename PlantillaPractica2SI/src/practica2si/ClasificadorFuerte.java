@@ -79,6 +79,7 @@ public class ClasificadorFuerte {
                     actualizar = Math.pow(Math.E,valorConfianza);
                 // Ahora actualizo la distribucion de pesos de la iteracion siguiente
                 listaAprendizaje.get(j+1).setPeso(c.getPeso() * actualizar / Z);
+                System.out.println("Peso: " + listaAprendizaje.get(j+1).getPeso());
             }
             // 4. Actualizar el clasificador fuerte y me quedo con el que mejor
             int aciertos = 0;
