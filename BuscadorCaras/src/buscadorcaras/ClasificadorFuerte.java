@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package practica2si;
+package buscadorcaras;
 
 import java.util.ArrayList;
 
@@ -23,7 +23,6 @@ public class ClasificadorFuerte {
     }
     
     public int numClasificadoresEncontrados() { return clasificadoresDebiles.size(); }
-    public ClasificadorDebil getElegido() { return elegido; }
     // Comprueba si es cara o no
     public int determinarCara(Cara c)
     { 

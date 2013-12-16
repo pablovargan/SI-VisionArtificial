@@ -1,4 +1,4 @@
-package practica2si;
+package buscadorcaras;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
