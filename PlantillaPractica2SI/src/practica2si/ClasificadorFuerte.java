@@ -13,17 +13,14 @@ import java.util.ArrayList;
 public class ClasificadorFuerte {
     // Se compone de un array de ClasificadoresDebiles
     private ArrayList<ClasificadorDebil> clasificadoresDebiles;
-    private ClasificadorDebil elegido;
     
     // Constructor
     public ClasificadorFuerte() 
     {
         this.clasificadoresDebiles = new ArrayList<ClasificadorDebil>();
-        this.elegido = null;
     }
     
     public int numClasificadoresEncontrados() { return clasificadoresDebiles.size(); }
-    public ClasificadorDebil getElegido() { return elegido; }
     // Comprueba si es cara o no
     public int determinarCara(Cara c)
     { 
@@ -94,13 +91,12 @@ public class ClasificadorFuerte {
                     aciertos++;
             }
             aciertosCandidato[i] = aciertos;
-            System.out.println("Iteración " + (i + 1) + ": " + aciertos + "/" + listaAprendizaje.size() + " (" + (100.0 * aciertos/listaAprendizaje.size()) + "%)");
+            System.out.println("Iteración " + (i + 1) + ": " + aciertos + "/" + listaAprendizaje.size() + " (" + (100.0f * aciertos/listaAprendizaje.size()) + "%)");
             // Si obtengo los mismos aciertos que cantidad de caras corto la ejecución
             if(aciertos == listaAprendizaje.size()) 
             {
                 System.out.println("100% de aciertos en la Iteración " + (i + 1));
                 // Este (obviamente) será el mejor encontrado
-                this.elegido = clasificadoresDebiles.get(i);
                 break;
             }
         }
@@ -119,10 +115,9 @@ public class ClasificadorFuerte {
                 numIteracion = i;
             }
         }
-        // Asigno como el clasificador elegido
-        this.elegido = clasificadoresDebiles.get(numIteracion);
+
         // Lo muestro por pantalla
-        System.out.println("Iteración elegida " + (numIteracion + 1) + ": " + aciertos 
-                + "/" + tamListaCaras + " (" + (100.0 * aciertos/tamListaCaras) + "%)");
+        System.out.println("Mejor iteración " + (numIteracion + 1) + ": " + aciertos 
+                + "/" + tamListaCaras + " (" + (100.0f * aciertos/tamListaCaras) + "%)");
     }
 }

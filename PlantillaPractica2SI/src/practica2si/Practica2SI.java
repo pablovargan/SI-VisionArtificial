@@ -30,7 +30,7 @@ public class Practica2SI {
     public Practica2SI()
     {
         rutaDir = "";
-        testRate = 0.5;
+        testRate = 0.4;
 	NUM_ITERACIONES = 1;
 	NUM_CLASIFICADORES = 1;
         VERBOSE = false;
@@ -88,26 +88,26 @@ public class Practica2SI {
 	System.out.println("Número de clasificadores encontrados: " + cFuerte.numClasificadoresEncontrados() ); //TODO añadir el valor
 	System.out.println("---------------------------------------");
         
-        //Test final
+        // Test final
         if(VERBOSE)
         {
             aciertos = 0;
             for(Cara c: listaAprendizaje)
             {
-                if(cFuerte.determinarCara(c) == c.getTipo())
+                if(cFuerte.determinarCara(c)== c.getTipo())
                     aciertos++;
             }
             System.out.println("APRENDIZAJE. Tasa de aciertos: "+((float)aciertos/(float)(listaAprendizaje.size())*100.0f)+"%");
         }
         
-	//Comprobamos el conjunto de test
-	aciertos = 0;
+	// Comprobamos el conjunto de test
+        aciertos = 0;
 	for(Cara c: listaTest)
 	{
 		if(cFuerte.determinarCara(c) == c.getTipo())
 			aciertos++;
 	}
-	System.out.println("TEST. Tasa de aciertos: "+((float)aciertos/(float)(listaAprendizaje.size())*100.0f)+"%");
+	System.out.println("TEST. Tasa de aciertos: "+((float)aciertos/(float)(listaTest.size())*100.0f)+"%");
     }
     
     /**
